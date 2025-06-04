@@ -70,6 +70,7 @@ class JobApplicationResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('updated_at', 'desc')
             ->recordUrl(null)
             ->recordAction(null)
             ->columns([
