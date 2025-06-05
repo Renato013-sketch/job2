@@ -18,6 +18,9 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Filters\Filter;
 use Filament\Infolists;
 use Filament\Infolists\Infolist;
+use Illuminate\Support\Facades\Auth;
+use Filament\Forms\Components\Hidden;
+use App\Models\User;
 
 class JobApplicationResource extends Resource
 {
@@ -29,6 +32,8 @@ class JobApplicationResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Hidden::make('user_id')
+                    ->default(Auth::id()),
                 Forms\Components\DatePicker::make('tanggal_lamar')
                     ->label('Application Date')
                     ->required()
@@ -194,5 +199,14 @@ class JobApplicationResource extends Resource
 //            'create' => Pages\CreateJobApplication::route('/create'),
 //            'edit' => Pages\EditJobApplication::route('/{record}/edit'),
         ];
+    }
+    protected static function getNavigationQuery(): Builder
+    {
+    return static::getEloquentQuery()->where('user_id', Auth::id());
+    }
+
+public static function getEloquentQuery(): Builder
+    {
+    return parent::getEloquentQuery()->where('user_id', Auth::id());
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 
 class JobApplication extends Model
 {
@@ -16,9 +17,14 @@ class JobApplication extends Model
         'posisi',
         'range_gaji',
         'status',
+        'user_id',
     ];
 
     protected $casts = [
         'tanggal_lamar' => 'date',
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

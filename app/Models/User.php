@@ -52,15 +52,8 @@ class User extends Authenticatable implements FilamentUser
     /**
      * Get the user's initials
      */
-    public function initials(): string
-    {
-        return Str::of($this->name)
-            ->explode(' ')
-            ->map(fn (string $name) => Str::of($name)->substr(0, 1))
-            ->implode('');
-    }
     public function canAccessPanel(Panel $panel): bool
     {
-        return str_ends_with($this->email, '@oustrill.my.id');
+        return str_ends_with($this->email, '@oustrill.web.id');
     }
 }
